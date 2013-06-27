@@ -53,26 +53,80 @@ public class NumberSetStatistics {
 				double residualSum = 0;
 				test string
 				4321 41234 2314 1242 1 421 41t 4124 1242134124214241242 t43t32t 343222t
+				Problem if something like 2.1.3 or 2.2.2.2 is entered
 				*/
 				
 				String input=userInput.readLine();
 				String[] numberSets = input.split("[^0-9\\.\\s]+");
 				for (int i = 0;i<numberSets.length;i++) {
+					
 					String aSet =numberSets[i];
-					System.out.println("This is a numberSet before split " + aSet);
+					messageOut.println("This is a numberSet before split " + aSet);
+					
+					if (aSet.isEmpty()) {
+						messageOut.println("I just read an empty set so there no statistics.");
+						System.exit(0);
+					}//Close if
+					
+					aSet = aSet.replaceAll("\\s+"," ");
 					if (aSet.charAt(aSet.length()-1)==' '){
 						aSet= aSet.substring(0,aSet.length()-1);
-					}
+					}//Close if
+					
 					if (aSet.charAt(0)==' '){
 						aSet= aSet.substring(1);
-					}
-					System.out.println("This is a numberSet after taking off whitespace " + aSet);
-					String[] numberSet = aSet.split("\\s+");
-					for(int j=0;j<numberSet.length;j++){
-						System.out.println("this is a number in it " + numberSet[j]);
-					}
-					System.out.println("New Set of Numbers");
-				}
+					}//Close if
+					
+					messageOut.println("This is a numberSet after taking off whitespace " + aSet);
+					String[] numberSetString = aSet.split("\\s+");
+					
+					if (numberSetString.length==1){
+						//print out message
+						messageOut.println("avg,min,and max are all the same thing. Stdev does not exist.");
+						if ((i+1)<numberSets.length) {
+							i++;
+						} else {
+							System.exit(0);
+					}//Close if
+					} else {
+					
+					double[] numberSet = new double[numberSetString.length];
+					//Parse to double[]
+					for(int j=0;j<numberSetString.length;j++){
+						numberSet[j]=Double.parseDouble(numberSetString[j]);
+						messageOut.println("this is a number in it " + numberSet[j]);
+					}//close For
+					
+					double min = numberSet[0];
+					double max=min;
+					double checkNumber;
+					double avg;
+					double stdev;
+					double sum = min;
+					double residualSum = 0;
+					
+					
+					//Calculations
+					
+					for (int k=1; k<numberSet.length;k++) {
+						//messageOut.println(numberSet.get(i));
+						checkNumber = numberSet[k];
+						if (checkNumber<min){
+							min=checkNumber;
+						}//Close if
+						if (checkNumber>max) {
+							max=checkNumber;
+						}//Close if
+						sum=sum+checkNumber;
+						
+					}//Close for Mean Calc
+					
+					avg = sum/numberSet.length;
+					
+					}//Close else
+					messageOut.println("New Set of Numbers");
+				}//Close for
+				
 				//String[] numbers = .split("\\s+");
 				
 				//for (int i = 0;i<numbers.length;i++) {
