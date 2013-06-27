@@ -50,15 +50,26 @@ public class NumberSetStatistics {
 				double avg;
 				double stdev;
 				double sum = min;
-				double residualSum = 0;*/
+				double residualSum = 0;
+				test string
+				4321 41234 2314 1242 1 421 41t 4124 1242134124214241242 t43t32t 343222t
+				*/
 				
 				String input=userInput.readLine();
 				String[] numberSets = input.split("[^0-9\\.\\s]+");
 				for (int i = 0;i<numberSets.length;i++) {
 					String aSet =numberSets[i];
+					System.out.println("This is a numberSet before split " + aSet);
+					if (aSet.charAt(aSet.length()-1)==' '){
+						aSet= aSet.substring(0,aSet.length()-1);
+					}
+					if (aSet.charAt(0)==' '){
+						aSet= aSet.substring(1);
+					}
+					System.out.println("This is a numberSet after taking off whitespace " + aSet);
 					String[] numberSet = aSet.split("\\s+");
 					for(int j=0;j<numberSet.length;j++){
-					System.out.println("this is a number " + numberSet[j]);
+						System.out.println("this is a number in it " + numberSet[j]);
 					}
 					System.out.println("New Set of Numbers");
 				}
