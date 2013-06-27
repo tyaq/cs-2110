@@ -7,8 +7,18 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+
 public class NumberSetStatistics {
 
+	double min;
+	double max;
+	double avg;
+	double stdev;
+	double sum;
+	double residualSum;
+	double variance;
+	double[] numberSet;
+	
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -104,6 +114,7 @@ public class NumberSetStatistics {
 					double stdev;
 					double sum = min;
 					double residualSum = 0;
+					double variance;
 					
 					
 					//Calculations
@@ -123,9 +134,33 @@ public class NumberSetStatistics {
 					
 					avg = sum/numberSet.length;
 					
+					for (int l=0; l<numberSet.length;i++) {
+						residualSum = residualSum + Math.pow((double) numberSet[l]-avg,2);
+					}//Close for Stdev
+					
+					stdev = Math.sqrt(residualSum/numberSet.length);
+					
+					variance = stdev*stdev;
+					
+					messageOut.print("\nFor set [");
+					for (int m=0; m<numberSet.length;m++) {
+						messageOut.print(numberSet[m]);
+						if ((m+1)<numberSet.length) {
+							messageOut.print(",");
+						}
+					}
+					messageOut.println("]");
+					messageOut.println("\tThe minimum of the set is " + min);
+					messageOut.println("\tThe maximum of the set is " + max);
+					messageOut.println("\tThe average of the set is " + avg);
+					messageOut.println("\tThe standard deveation is " + stdev);
+					messageOut.println("\tThe variance is " + variance);
+					messageOut.println("\tThe Sum of the residuals is " + residualSum);
 					}//Close else
 					messageOut.println("New Set of Numbers");
-				}//Close for
+					
+					
+				}//Close type for
 				
 				//String[] numbers = .split("\\s+");
 				
@@ -165,9 +200,21 @@ public class NumberSetStatistics {
 
 	}//Close main Method
 
-public void useType() {
-	
-}
+public void calcMaxMin(double[] numberSet) {
+	double checkNumber;
+	for (int k=1; k<numberSet.length;k++) {
+		//messageOut.println(numberSet.get(i));
+		checkNumber = numberSet[k];
+		if (checkNumber<min){
+			min=checkNumber;
+		}//Close if
+		if (checkNumber>max) {
+			max=checkNumber;
+		}//Close if
+		sum=sum+checkNumber;
+		
+	}//Close for Mean Calc
+}//Close calcMaxMin Method
 	
 	//Create a saving method
 	public static void saveFile() {
