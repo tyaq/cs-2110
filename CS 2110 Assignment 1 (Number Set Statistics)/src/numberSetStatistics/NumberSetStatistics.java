@@ -6,18 +6,9 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+import java.lang.Math;
 
 public class NumberSetStatistics {
-
-	double min;
-	double max;
-	double avg;
-	double stdev;
-	double sum;
-	double residualSum;
-	double variance;
-	double[] numberSet;
 	
 	/**
 	 * @param args
@@ -34,6 +25,17 @@ public class NumberSetStatistics {
 		//Ask if user wants to use self input or file input make it so it reminds you what options you have
 			messageOut.println("Do you prefer to type in data or give the name of a file holding the data?");
 			String typeChoice = userInput.readLine();
+			
+			double min;
+			double max;
+			double checkNumber;
+			double avg;
+			double stdev;
+			double sum;
+			double residualSum;
+			double variance;
+			double[] numberSet;
+			
 			if (typeChoice.equals("type")) {
 				messageOut.println("Enter in your Numbers on seperate lines. When you are finish press enter agian.");
 				/*String regex = "([-+]?[0-9]*\\.?([0-9]+([eE][-+]?[0-9]+)?)?)";//regex to get doubles and empty string
@@ -100,21 +102,17 @@ public class NumberSetStatistics {
 					}//Close if
 					} else {
 					
-					double[] numberSet = new double[numberSetString.length];
+					numberSet = new double[numberSetString.length];
 					//Parse to double[]
 					for(int j=0;j<numberSetString.length;j++){
 						numberSet[j]=Double.parseDouble(numberSetString[j]);
 						messageOut.println("this is a number in it " + numberSet[j]);
 					}//close For
-					
-					double min = numberSet[0];
-					double max=min;
-					double checkNumber;
-					double avg;
-					double stdev;
-					double sum = min;
-					double residualSum = 0;
-					double variance;
+
+					min = numberSet[0];
+					max=min;
+					sum = min;
+					residualSum = 0;
 					
 					
 					//Calculations
@@ -130,18 +128,18 @@ public class NumberSetStatistics {
 						}//Close if
 						sum=sum+checkNumber;
 						
-					}//Close for Mean Calc
+					}//Close for
 					
 					avg = sum/numberSet.length;
 					
-					for (int l=0; l<numberSet.length;i++) {
-						residualSum = residualSum + Math.pow((double) numberSet[l]-avg,2);
+					for (int l=0; l<numberSet.length;l++) {
+						residualSum = residualSum + Math.pow(numberSet[l]-avg,2);
 					}//Close for Stdev
-					
+				
 					stdev = Math.sqrt(residualSum/numberSet.length);
-					
+				
 					variance = stdev*stdev;
-					
+
 					messageOut.print("\nFor set [");
 					for (int m=0; m<numberSet.length;m++) {
 						messageOut.print(numberSet[m]);
@@ -158,7 +156,6 @@ public class NumberSetStatistics {
 					messageOut.println("\tThe Sum of the residuals is " + residualSum);
 					}//Close else
 					messageOut.println("New Set of Numbers");
-					
 					
 				}//Close type for
 				
@@ -194,27 +191,13 @@ public class NumberSetStatistics {
 				messageOut.println("The average of the set is " + avg);
 				messageOut.println("The standard deveation is " + stdev);
 				*/
-			}//Close If
+				}//Close If
 			//else if (input=="file") {useFile();}
 			else {messageOut.println("Please tell me Either\"type\" or \"file\" or \"close\".");}
 
 	}//Close main Method
 
-public void calcMaxMin(double[] numberSet) {
-	double checkNumber;
-	for (int k=1; k<numberSet.length;k++) {
-		//messageOut.println(numberSet.get(i));
-		checkNumber = numberSet[k];
-		if (checkNumber<min){
-			min=checkNumber;
-		}//Close if
-		if (checkNumber>max) {
-			max=checkNumber;
-		}//Close if
-		sum=sum+checkNumber;
-		
-	}//Close for Mean Calc
-}//Close calcMaxMin Method
+
 	
 	//Create a saving method
 	public static void saveFile() {
