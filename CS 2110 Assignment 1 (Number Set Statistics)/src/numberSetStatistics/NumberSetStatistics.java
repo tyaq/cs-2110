@@ -81,7 +81,7 @@ public class NumberSetStatistics {
 				userInput = new BufferedReader(isr);
 		//Assumes Data is inputed
 			} else { 
-				input=userInput.readLine();
+				input=inputFilePath;
 				save += "Input:\tEntered Data\n" + "\t" + input + "\n";
 				} 
 		//Terminators are used to find number sets
